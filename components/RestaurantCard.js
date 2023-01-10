@@ -22,7 +22,7 @@ export default function RestaurantCard({
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("Restaurants", {
+        navigation.navigate("RestaurantScreen", {
           id,
           imgUrl,
           title,

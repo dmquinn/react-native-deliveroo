@@ -1,12 +1,12 @@
 export default {
-  name: 'clothingItem',
-  title: 'clothingItem',
+  name: 'dish',
+  title: 'Dish',
   type: 'document',
   fields: [
     {
       name: 'name',
       type: 'string',
-      title: 'Name of item',
+      title: 'Name of dish',
       validation: (Rule) => Rule.required(),
     },
     {
@@ -18,12 +18,12 @@ export default {
     {
       name: 'price',
       type: 'number',
-      title: 'Price of the item in EUR',
+      title: 'Price of the dish in EUR',
     },
     {
       name: 'image',
       type: 'image',
-      title: 'Image of the item',
+      title: 'Image of the Dish',
     },
   ],
 }

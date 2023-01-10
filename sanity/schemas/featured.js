@@ -16,10 +16,10 @@ export default {
       validation: (Rule) => Rule.max(200),
     },
     {
-      name: 'clothingItem',
+      name: 'restaurants',
       type: 'array',
-      title: 'Clothing Item',
-      of: [{type: 'reference', to: [{type: 'clothingItem'}]}],
+      title: 'Restaurants',
+      of: [{type: 'reference', to: [{type: 'restaurant'}]}],
     },
   ],
 }
