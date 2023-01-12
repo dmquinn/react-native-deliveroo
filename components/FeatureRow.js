@@ -4,7 +4,7 @@ import { ArrowRightIcon } from "react-native-heroicons/outline";
 import RestaurantCard from "./RestaurantCard";
 import sanityClient from "../sanity";
 
-export default function FeatureRow({ id, title, description }) {
+export default function FeatureRow({ id, title, description, query }) {
   const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {

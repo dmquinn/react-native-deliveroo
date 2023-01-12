@@ -10,9 +10,14 @@ import {
 } from "react-native-heroicons/solid";
 import { urlFor } from "../sanity";
 import DishRow from "../components/DishRow";
+import BasketIcon from "../components/BasketIcon";
+import { useEffect } from "react";
+import { setRestaurant } from "../redux/restaurantSlice";
+import { useDispatch } from "react-redux";
 
-const ClothesScreen = () => {
+const RestaurantScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const {
     params: {
       id,
@@ -27,6 +32,23 @@ const ClothesScreen = () => {
       lat,
     },
   } = useRoute();
+
+  useEffect(() => {
+    dispatch(
+      setRestaurant({
+        id,
+        imgUrl,
+        title,
+        rating,
+        genre,
+        address,
+        short_description,
+        dishes,
+        long,
+        lat,
+      })
+    );
+  }, [dispatch]);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerTitle: false,
@@ -34,7 +56,7 @@ const ClothesScreen = () => {
   }, []);
   return (
     <>
-      {/* <BasketIcon /> */}
+      <BasketIcon />
       <ScrollView>
         <View className="relative">
           <Image
@@ -100,4 +122,4 @@ const ClothesScreen = () => {
   );
 };
 
-export default ClothesScreen;
+export default RestaurantScreen;
