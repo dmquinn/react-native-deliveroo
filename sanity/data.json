@@ -1,0 +1,24 @@
+[
+  {
+    "_type": "restaurant",
+    "_updatedAt": "2023-01-11T16:10:51Z",
+    "address": "Richard-Sorge-Straße 21, 10249 Berlin",
+    "dishes": [],
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-2326933c6131b0406f25dfc1370385ced7410a45-723x900-jpg",
+        "_type": "reference"
+      }
+    },
+    "lat": 52.52017068773037,
+    "long": 13.447722838733561,
+    "name": "New One",
+    "rating": 5,
+    "short_description": "A New restaurant",
+    "type": {
+      "_ref": "4b292c48-582d-4bc5-84c8-65c6551d2612",
+      "_type": "reference"
+    }
+  }
+]
