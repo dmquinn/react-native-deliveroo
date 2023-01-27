@@ -1,20 +1,20 @@
 import { View, Text, ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
-import CategoryCard from "./CategoryCard";
+import PromotionsCard from "./PromotionsCard";
 import sanityClient, { urlFor } from "../sanity";
 
-export default function Categories() {
-  const [categories, setCategories] = useState([]);
+export default function Promotions() {
+  const [promotions, setPromotions] = useState([]);
 
   useEffect(() => {
     sanityClient
       .fetch(
         `
-    *[_type == "category"]
+    *[_type == "promotions"]
     `
       )
       .then((data) => {
-        setCategories(data);
+        setPromotions(data);
       });
   }, []);
 
@@ -27,11 +27,11 @@ export default function Categories() {
       }}
       showsHorizontalScrollIndicator={false}
     >
-      {categories.map((category) => (
-        <CategoryCard
-          key={category._id}
-          imgUrl={urlFor(category.image).width(200).url()}
-          title={category.name}
+      {promotions.map((promotion) => (
+        <PromotionsCard
+          key={promotion._id}
+          imgUrl={urlFor(promotion.image).width(500).url()}
+          title={promotion.name}
         />
       ))}
     </ScrollView>

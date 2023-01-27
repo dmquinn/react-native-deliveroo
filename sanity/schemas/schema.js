@@ -6,9 +6,10 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 
 // We import object and document schemas
 import category from './category'
-import restaurant from './restaurant'
-import dish from './dish'
+import restaurant from './warehouse'
+import item from './item'
 import featured from './featured'
+import promotions from './promotions'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -21,7 +22,8 @@ export default createSchema({
     // in the studio.
     restaurant,
     category,
-    dish,
+    item,
     featured,
+    promotions,
   ]),
 })
