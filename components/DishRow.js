@@ -5,7 +5,6 @@ import { MinusCircleIcon, PlusCircleIcon } from "react-native-heroicons/solid";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToBasket,
-  selectBasketItems,
   selectBasketItemWithId,
   removeFromBasket,
 } from "../redux/basketSlice";
