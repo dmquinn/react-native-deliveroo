@@ -10,6 +10,7 @@ import restaurant from './warehouse'
 import item from './item'
 import featured from './featured'
 import promotions from './promotions'
+import warehouse from './warehouse'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -25,5 +26,6 @@ export default createSchema({
     item,
     featured,
     promotions,
+    warehouse,
   ]),
 })

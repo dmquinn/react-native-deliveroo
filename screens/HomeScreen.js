@@ -6,30 +6,29 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React, { useLayoutEffect, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { getDistance } from "geolib";
 import {
-  ChevronDownIcon,
-  UserIcon,
   MagnifyingGlassIcon,
   MapPinIcon,
 } from "react-native-heroicons/outline";
-// import { Location, Permissions } from "expo";
 import * as Location from "expo-location";
-import Categories from "../components/Promotions";
-import FeatureRow from "../components/FeatureRow";
-import ProductCard from "../components/ProductCard";
 import sanityClient from "../sanity";
 import Promotions from "../components/Promotions";
 import ProductsList from "../components/ProductsList";
 import BasketIcon from "../components/BasketIcon";
+import { haversineDistance } from "../functions/getDistance";
 
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [featuredCategories, setFeaturedCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [waitingTime, setWaitingTime] = useState(0);
+
   const [query, setQuery] = useState(null);
   const [location, setLocation] = useState(undefined);
+  const [deliverAddress, setDeliverAddress] = useState(undefined);
 
   useEffect(() => {
     const getPermissions = async () => {
@@ -39,12 +38,12 @@ export default function HomeScreen() {
         return;
       }
       let currentLocation = await Location.getCurrentPositionAsync({});
+      await setLocation(currentLocation.coords);
       let address = await Location.reverseGeocodeAsync(currentLocation.coords);
-      setLocation(address[0]);
+      setDeliverAddress(address[0]);
     };
     getPermissions();
   }, []);
-
   useEffect(() => {
     sanityClient
       .fetch(
@@ -76,6 +75,25 @@ export default function HomeScreen() {
         });
     }
   }, [query]);
+  useEffect(() => {
+    sanityClient
+      .fetch(
+        `
+      *[_type == "warehouse"]`
+      )
+      .then((data) => {
+        const time = haversineDistance(
+          location.latitude,
+          location.longitude,
+          data[0].lat,
+          data[0].long
+        );
+        setWaitingTime(time);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [location]);
   useEffect(() => {
     if (query) {
       const filtered = products.filter((item) => {
@@ -118,17 +136,24 @@ export default function HomeScreen() {
           />
 
           <View className="flex">
-            {location ? (
-              <Text className="font-bold text-xl">
-                {location?.street} {location?.streetNumber} {location?.city}{" "}
-                <MapPinIcon size={30} color="#00CCBB" onPress={() => {}} />
-              </Text>
+            <Text>Deliver to</Text>
+            {deliverAddress ? (
+              <View className="flex-row align-middle">
+                <MapPinIcon size={20} color="#00CCBB" />
+                <Text className="font-bold text-lg -mt-1">
+                  {deliverAddress?.street} {deliverAddress?.streetNumber}{" "}
+                  {deliverAddress?.city}
+                </Text>
+              </View>
             ) : (
               <Text className="font-bold text-xl">
                 Enter Location
                 <MapPinIcon size={30} color="#00CCBB" onPress={() => {}} />
               </Text>
             )}
+            <View className="bg-[#00CCBB] p-2 text-white">
+              <Text>{waitingTime} mins</Text>
+            </View>
           </View>
         </View>
         <ScrollView

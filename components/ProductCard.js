@@ -16,7 +16,6 @@ import {
 import { useState } from "react";
 
 export default function ProductCard({ product }) {
-  const [isPressed, setIsPress] = useState(false);
   const dispatch = useDispatch();
   const { _id, name, price, rating, brand, image } = product;
 
@@ -24,30 +23,36 @@ export default function ProductCard({ product }) {
   const addItemToBasket = () => {
     dispatch(addToBasket({ _id, name, price, image, rating, brand }));
   };
-
   const removeItemFromBasket = () => {
     if (!items.length > 0) return;
-
     dispatch(removeFromBasket({ _id }));
   };
+
   return (
     <View className="w-40 h-80 mt-5">
+      <View className="flex-row items-center space-x-2 ">
+        <TouchableOpacity onPress={addItemToBasket}>
+          <PlusCircleIcon size={30} color="#00CCBB" />
+        </TouchableOpacity>
+        <Text>{items.length > 0 && items.length}</Text>
+        <TouchableOpacity
+          onPress={removeItemFromBasket}
+          disabled={!items.length}
+        >
+          <MinusCircleIcon
+            color={items.length > 0 ? "#fa4437" : "white"}
+            size={30}
+          />
+        </TouchableOpacity>
+      </View>
       <Image
         source={{
           uri: urlFor(product?.image).url(),
         }}
         className="h-40 rounded-sm"
       />
-      <TouchableOpacity disabled={!items.length} onPress={removeItemFromBasket}>
-        <MinusCircleIcon
-          color={items.length > 0 ? "#00CCBB" : "gray"}
-          size={40}
-        />
-      </TouchableOpacity>
-      <TouchableOpacity className="absolute top-5" onPress={addItemToBasket}>
-        <PlusCircleIcon size={30} color="#fa4437" />
-      </TouchableOpacity>
-      <View className="px-3 pb-4">
+
+      <View className="px-3 pb-4 -mt-3">
         <Text className="font-bold text-lg pt-2">{product?.name}</Text>
         <Text className="text-md text-gray-800">{product?.brand}</Text>
         <Text className="text-xs text-gray-500">{product?.price}EUR</Text>

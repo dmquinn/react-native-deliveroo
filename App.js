@@ -2,6 +2,7 @@ import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { TailwindProvider } from "tailwindcss-react-native";
+import { useColorScheme } from "tailwindcss-react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
@@ -15,6 +16,8 @@ import DeliveryScreen from "./screens/DeliveryScreen";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const { colorScheme, setColorScheme } = useColorScheme();
+
   return (
     <NavigationContainer>
       <Provider store={store}>

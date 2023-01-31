@@ -35,8 +35,8 @@ export default function BasketScreen() {
   const totalPrice = (basketTotal + 2.99).toFixed(2);
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <View className="flex-1 bg-gray-100">
-        <View className="p-5 border-b border-[#00CCBB] bg-white shadow-xs">
+      <View className="flex-1 bg-gray">
+        <View className="p-5 border-b border-brand-1 bg-white shadow-xs">
           <View>
             <Text className="text-lg font-bold text-center">Basket</Text>
             <Text className="text-center text-gray-400">
@@ -45,7 +45,7 @@ export default function BasketScreen() {
           </View>
           <TouchableOpacity
             onPress={navigation.goBack}
-            className="rounded-full bg-gray-100 absolute top-3 right-5"
+            className="rounded-full bg-gray absolute top-3 right-5"
           >
             <XCircleIcon color="#00CCBB" height={50} width={50} />
           </TouchableOpacity>
