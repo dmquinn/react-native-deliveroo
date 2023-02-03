@@ -12,6 +12,7 @@ import { getDistance } from "geolib";
 import {
   MagnifyingGlassIcon,
   MapPinIcon,
+  ClockIcon,
 } from "react-native-heroicons/outline";
 import * as Location from "expo-location";
 import sanityClient from "../sanity";
@@ -21,11 +22,9 @@ import BasketIcon from "../components/BasketIcon";
 import { haversineDistance } from "../functions/getDistance";
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
-  const [featuredCategories, setFeaturedCategories] = useState([]);
+  const [setFeaturedCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [waitingTime, setWaitingTime] = useState(0);
-
   const [query, setQuery] = useState(null);
   const [location, setLocation] = useState(undefined);
   const [deliverAddress, setDeliverAddress] = useState(undefined);
@@ -107,8 +106,8 @@ export default function HomeScreen() {
   return (
     <>
       <BasketIcon />
-      <SafeAreaView className="bg-whit pt-10 ">
-        <View className="flex items-center p-5 mb-3 bg-orange-500">
+      <SafeAreaView className=" pt-10 ">
+        <View className="flex items-center p-5 mb-3 bg-[#F8910e]">
           <Image
             source={require("../assets/logo.png")}
             className="h-20 w-full"
@@ -116,7 +115,7 @@ export default function HomeScreen() {
         </View>
 
         <View className="flex-row item-center space-x-2 pb-2 mx-4">
-          <View className="flex-row space-x-2 flex-1 bg-white rounded-lg p-3 -mt-6">
+          <View className="flex-row space-x-2 flex-1 bg-[#ffffff] rounded-lg p-3 -mt-6">
             <MagnifyingGlassIcon color="gray" size={30} />
             <TextInput
               placeholder="Restaurants and cuisines"
@@ -148,22 +147,23 @@ export default function HomeScreen() {
             ) : (
               <Text className="font-bold text-xl">
                 Enter Location
-                <MapPinIcon size={30} color="#00CCBB" onPress={() => {}} />
+                <MapPinIcon size={30} color="#00CCBB" />
               </Text>
             )}
-            <View className="bg-[#00CCBB] p-2 text-white">
-              <Text>{waitingTime} mins</Text>
+            <View className="flex-row w-full justify-end pr-10">
+              <ClockIcon size={20} color="#00CCBB" />
+              <Text className="text-xs"> {waitingTime} mins</Text>
             </View>
           </View>
         </View>
         <ScrollView
-          className="mt-2 bg-white"
+          className="mt-2 bg-[#ffffff]"
           contentContainerStyle={{
             paddingBottom: 100,
           }}
         >
           <View className="pt-5 pb-5">
-            <Promotions />
+            <Promotions products={products} setProducts={setProducts} />
           </View>
           <ProductsList products={products} />
         </ScrollView>

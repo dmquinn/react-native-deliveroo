@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import PromotionsCard from "./PromotionsCard";
 import sanityClient, { urlFor } from "../sanity";
 
-export default function Promotions() {
+export default function Promotions({ products, setProducts }) {
   const [promotions, setPromotions] = useState([]);
 
   useEffect(() => {
@@ -32,6 +32,8 @@ export default function Promotions() {
           key={promotion._id}
           imgUrl={urlFor(promotion.image).width(500).url()}
           title={promotion.name}
+          products={products}
+          setProducts={setProducts}
         />
       ))}
     </ScrollView>

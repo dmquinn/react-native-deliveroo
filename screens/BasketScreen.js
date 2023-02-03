@@ -9,7 +9,6 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
-import { selectRestaurant } from "../redux/restaurantSlice";
 import { useDispatch } from "react-redux";
 import { selectBasketItems } from "../redux/basketSlice";
 import { XCircleIcon } from "react-native-heroicons/solid";
@@ -18,7 +17,6 @@ import { removeFromBasket, selectBasketTotal } from "../redux/basketSlice";
 
 export default function BasketScreen() {
   const navigation = useNavigation();
-  const restaurant = useSelector(selectRestaurant);
   const basketTotal = useSelector(selectBasketTotal);
   const [groupItemsInBucket, setGroupItemsInBucket] = useState([]);
   const items = useSelector(selectBasketItems);
@@ -26,12 +24,12 @@ export default function BasketScreen() {
 
   useEffect(() => {
     const groupItems = items.reduce((results, item) => {
-      (results[item.id] = results[item.id] || []).push(item);
+      (results[item._id] = results[item._id] || []).push(item);
       return results;
     }, {});
     setGroupItemsInBucket(groupItems);
   }, [items]);
-  groupItemsInBucket && console.log("GIIB", basketTotal);
+
   const totalPrice = (basketTotal + 2.99).toFixed(2);
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -39,9 +37,6 @@ export default function BasketScreen() {
         <View className="p-5 border-b border-brand-1 bg-white shadow-xs">
           <View>
             <Text className="text-lg font-bold text-center">Basket</Text>
-            <Text className="text-center text-gray-400">
-              {restaurant.title}
-            </Text>
           </View>
           <TouchableOpacity
             onPress={navigation.goBack}
@@ -74,11 +69,13 @@ export default function BasketScreen() {
                 className="h-12 w-12 rounded-full"
               />
               <Text className="flex-1">{items[0]?.name}</Text>
-              <Text className="text-gray-600">{items[0]?.price} EUR</Text>
+              <Text className="text-gray-600">
+                {items[0]?.price.toFixed(2)} EUR
+              </Text>
               <TouchableOpacity>
                 <Text
                   className="text-[#00CCBB] text-xs"
-                  onPress={() => dispatch(removeFromBasket({ id: key }))}
+                  onPress={() => dispatch(removeFromBasket({ _id: key }))}
                 >
                   Remove
                 </Text>
@@ -90,7 +87,7 @@ export default function BasketScreen() {
         <View className="p-5 bg-white mt-5 space-y-4">
           <View className="flex-row justify-between">
             <Text className="text-gray-400">SubTotal</Text>
-            <Text className="text-gray-400">{basketTotal} EUR</Text>
+            <Text className="text-gray-400">{basketTotal.toFixed(2)} EUR</Text>
           </View>
           <View className="flex-row justify-between">
             <Text className="text-gray-400">Delivery Fee</Text>

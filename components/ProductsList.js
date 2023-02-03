@@ -5,7 +5,7 @@ import BasketIcon from "./BasketIcon";
 
 const ProductsList = ({ products }) => {
   return (
-    <View className="flex-row flex-wrap justify-around items-center mt-4 bg-white pt-5">
+    <View className="flex-row flex-wrap justify-around items-center mt-4 bg-[#ffffff] pt-5">
       {products?.map((product, i) => {
         return (
           <>
