@@ -18,8 +18,6 @@ export default function DeliveryScreen() {
   const navigation = useNavigation();
   const restaurant = useSelector(selectRestaurant);
 
-  //console.log(restaurant.long);
-
   return (
     <View className="bg-[#00CCBB] flex-1">
       <SafeAreaView className="z-50">

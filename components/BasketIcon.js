@@ -11,8 +11,6 @@ export default function BasketIcon() {
 
   if (items.length === 0) return null;
 
-  //console.log(basketTotal);
-
   return (
     <View className="absolute bottom-10 w-full z-50">
       <TouchableOpacity

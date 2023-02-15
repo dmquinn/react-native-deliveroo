@@ -43,22 +43,7 @@ export default function HomeScreen() {
     };
     getPermissions();
   }, []);
-  useEffect(() => {
-    sanityClient
-      .fetch(
-        `
-      *[_type == "promotions"] {
-        ...,
-        },
-      }`
-      )
-      .then((data) => {
-        setFeaturedCategories(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+
   useEffect(() => {
     if (query === null) {
       sanityClient
@@ -163,7 +148,11 @@ export default function HomeScreen() {
           }}
         >
           <View className="pt-5 pb-5">
-            <Promotions products={products} setProducts={setProducts} />
+            <Promotions
+              products={products}
+              setProducts={setProducts}
+              promotions={setFeaturedCategories}
+            />
           </View>
           <ProductsList products={products} />
         </ScrollView>

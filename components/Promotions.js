@@ -17,7 +17,7 @@ export default function Promotions({ products, setProducts }) {
         setPromotions(data);
       });
   }, []);
-
+  products && console.log("PRODUCTS PROMOTIONS", products[0]);
   return (
     <ScrollView
       horizontal
@@ -29,6 +29,7 @@ export default function Promotions({ products, setProducts }) {
     >
       {promotions.map((promotion) => (
         <PromotionsCard
+          id={promotion._id}
           key={promotion._id}
           imgUrl={urlFor(promotion.image).width(500).url()}
           title={promotion.name}
