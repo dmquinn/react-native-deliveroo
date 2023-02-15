@@ -7,8 +7,6 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { getDistance } from "geolib";
 import {
   MagnifyingGlassIcon,
   MapPinIcon,

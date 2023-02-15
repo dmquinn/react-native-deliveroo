@@ -17,7 +17,6 @@ export default function Promotions({ products, setProducts }) {
         setPromotions(data);
       });
   }, []);
-  products && console.log("PRODUCTS PROMOTIONS", products[0]);
   return (
     <ScrollView
       horizontal
