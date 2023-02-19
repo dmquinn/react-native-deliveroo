@@ -44,19 +44,22 @@ export default function HomeScreen() {
 
   useEffect(() => {
     if (query === null) {
-      sanityClient
-        .fetch(
-          `
-      *[_type == "item"]`
-        )
-        .then((data) => {
-          setProducts(data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      getAllItems();
     }
   }, [query]);
+  const getAllItems = () => {
+    sanityClient
+      .fetch(
+        `
+      *[_type == "item"]`
+      )
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(() => {
     sanityClient
       .fetch(
@@ -89,7 +92,7 @@ export default function HomeScreen() {
   return (
     <>
       <BasketIcon />
-      <SafeAreaView className=" pt-10 ">
+      <SafeAreaView className=" pt-10 pb-20">
         <View className="flex items-center p-5 mb-3 bg-[#F8910e]">
           <Image
             source={require("../assets/logo.png")}
@@ -152,7 +155,7 @@ export default function HomeScreen() {
               promotions={setFeaturedCategories}
             />
           </View>
-          <ProductsList products={products} />
+          <ProductsList products={products} refresh={getAllItems} />
         </ScrollView>
       </SafeAreaView>
     </>
